@@ -21,7 +21,7 @@ import (
 var (
 	tpmPath       = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
 	confirmGCESEV = flag.Bool("confirmGCESEV", false, "Confirm if GCE SEV Status is active")
-	eventLogPath  = flag.String("eventLogPath", "/sys/kernel/security/tpm0/binary_bios_measurements", "Path to the eventlog")
+	//eventLogPath  = flag.String("eventLogPath", "/sys/kernel/security/tpm0/binary_bios_measurements", "Path to the eventlog")
 )
 
 func main() {
@@ -35,7 +35,7 @@ func main() {
 	}
 	defer func() {
 		if err := rwc.Close(); err != nil {
-			log.Fatalf("\ncan't close TPM %q: %v", tpmPath, err)
+			log.Fatalf("\ncan't close TPM %v: %v", tpmPath, err)
 		}
 	}()
 

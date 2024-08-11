@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	tpmDevice = "/dev/tpm0"
+	tpmDevice = "/dev/tpmrm0"
 	// handles https://github.com/google/go-tpm-tools/blob/master/client/handles.go#L36-L43
 	emptyPassword = ""
 )

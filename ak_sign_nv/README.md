@@ -1,10 +1,6 @@
 Sign with AK saved to NV
 
-
 https://pkg.go.dev/github.com/google/go-tpm-tools/client#EndorsementKeyFromNvIndex
-
-
-
 
 for GCE VMs
 
@@ -21,7 +17,7 @@ const (
 ---
 
 ```bash
-# go run main.go 
+# go run main.go
 
 go run main.go 
 2023/07/13 12:40:19 ======= Init  ========
