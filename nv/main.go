@@ -15,14 +15,14 @@ import (
 	"github.com/google/go-tpm/tpmutil"
 )
 
-const (
-	keyPassword = "keypwd"
-)
+// const (
+// 	keyPassword = "keypwd"
+// )
 
 var (
-	tpmPath = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath = flag.String("tpmPath", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	nv      = flag.Uint("nv", 0x1500000, "nv to use")
-	nvdata  = flag.String("nvdata", "foo", "nv data")
+	//nvdata  = flag.String("nvdata", "foo", "nv data")
 )
 
 var TPMDEVICES = []string{"/dev/tpm0", "/dev/tpmrm0"}

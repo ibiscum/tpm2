@@ -2,15 +2,15 @@ package main
 
 import (
 	"flag"
+	"os"
 	"strconv"
 	"strings"
 
 	"crypto/x509"
 	"encoding/hex"
 	"encoding/pem"
-	"io/ioutil"
 
-	"github.com/golang/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	//"github.com/gogo/protobuf/proto"
 	"github.com/golang/glog"
@@ -18,19 +18,19 @@ import (
 
 	pb "github.com/google/go-tpm-tools/proto/tpm"
 	"github.com/google/go-tpm-tools/server"
-	"github.com/google/go-tpm/tpm2"
+	"github.com/google/go-tpm/legacy/tpm2"
 )
 
 var handleNames = map[string][]tpm2.HandleType{
-	"all":       []tpm2.HandleType{tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
-	"loaded":    []tpm2.HandleType{tpm2.HandleTypeLoadedSession},
-	"saved":     []tpm2.HandleType{tpm2.HandleTypeSavedSession},
-	"transient": []tpm2.HandleType{tpm2.HandleTypeTransient},
+	"all":       {tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
+	"loaded":    {tpm2.HandleTypeLoadedSession},
+	"saved":     {tpm2.HandleTypeSavedSession},
+	"transient": {tpm2.HandleTypeTransient},
 }
 
 var (
 	mode           = flag.String("mode", "", "seal,unseal")
-	tpmPath        = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath        = flag.String("tpmPath", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	ekPubFile      = flag.String("ekPubFile", "", "ekPub file in PEM format")
 	sealedDataFile = flag.String("sealedDataFile", "", "sealedDataFile file")
 	secret         = flag.String("secret", "meet me at...", "secret")
@@ -72,7 +72,7 @@ func main() {
 			//glog.V(10).Infof("PCR Values: %v\n", pcrMap)
 		}
 
-		pubPEMData, err := ioutil.ReadFile(*ekPubFile)
+		pubPEMData, err := os.ReadFile(*ekPubFile)
 		if err != nil {
 			glog.Fatalf("Unable to read ekpub: %v", err)
 		}
@@ -92,9 +92,9 @@ func main() {
 		}
 		data, err := proto.Marshal(blob)
 		if err != nil {
-			glog.Fatalf("marshaling error: ", err)
+			glog.Fatalf("marshaling error: %v", err)
 		}
-		err = ioutil.WriteFile(*sealedDataFile, data, 0644)
+		err = os.WriteFile(*sealedDataFile, data, 0644)
 		if err != nil {
 			glog.Fatalf("Unable to write file: %v", err)
 		}
@@ -107,11 +107,11 @@ func main() {
 
 		rwc, err := tpm2.OpenTPM(*tpmPath)
 		if err != nil {
-			glog.Fatalf("can't open TPM %q: %v", tpmPath, err)
+			glog.Fatalf("can't open TPM %v: %v", tpmPath, err)
 		}
 		defer func() {
 			if err := rwc.Close(); err != nil {
-				glog.Fatalf("\ncan't close TPM %q: %v", tpmPath, err)
+				glog.Fatalf("\ncan't close TPM %v: %v", tpmPath, err)
 			}
 		}()
 
@@ -136,13 +136,13 @@ func main() {
 		}
 
 		blob := &pb.ImportBlob{}
-		dat, err := ioutil.ReadFile(*sealedDataFile)
+		dat, err := os.ReadFile(*sealedDataFile)
 		if err != nil {
-			glog.Fatalf("error reading sealed.dat: ", err)
+			glog.Fatalf("error reading sealed.dat: %v", err)
 		}
 		err = proto.Unmarshal(dat, blob)
 		if err != nil {
-			glog.Fatal("unmarshaling error: ", err)
+			glog.Fatalf("unmarshaling error: %v", err)
 		}
 		myDecodedSecret, err := ek.Import(blob)
 		glog.Infof("Unsealed secret: %v", string(myDecodedSecret))

@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	tpmDevice = "/dev/tpmrm0"
+	//tpmDevice = "/dev/tpmrm0"
 	// handles https://github.com/google/go-tpm-tools/blob/master/client/handles.go#L36-L43
 	emptyPassword = ""
 )
@@ -31,7 +31,7 @@ var (
 		"transient": {tpm2.HandleTypeTransient},
 	}
 
-	tpmPath = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 )
 
 func main() {
@@ -41,11 +41,11 @@ func main() {
 
 	rwc, err := tpm2.OpenTPM(*tpmPath)
 	if err != nil {
-		log.Fatalf("can't open TPM %q: %v", tpmPath, err)
+		log.Fatalf("can't open TPM %v: %v", tpmPath, err)
 	}
 	defer func() {
 		if err := rwc.Close(); err != nil {
-			log.Fatalf("%v\ncan't close TPM %q: %v", tpmPath, err)
+			log.Fatalf("can't close TPM %v: %v", tpmPath, err)
 		}
 	}()
 
@@ -111,11 +111,11 @@ func main() {
 
 	data, err := tpm2.NVReadEx(rwc, tpmutil.Handle(client.GceAKTemplateNVIndexRSA), tpm2.HandleOwner, "", 0)
 	if err != nil {
-		log.Fatalf("read error at index %d: %w", client.GceAKTemplateNVIndexRSA, err)
+		log.Fatalf("read error at index %d: %v", client.GceAKTemplateNVIndexRSA, err)
 	}
 	template, err := tpm2.DecodePublic(data)
 	if err != nil {
-		log.Fatalf("index %d data was not a TPM key template: %w", client.GceAKTemplateNVIndexRSA, err)
+		log.Fatalf("index %d data was not a TPM key template: %v", client.GceAKTemplateNVIndexRSA, err)
 	}
 
 	aKkeyHandle, keyName, _, _, _, _, err := tpm2.CreatePrimaryEx(rwc, tpm2.HandleEndorsement, tpm2.PCRSelection{}, emptyPassword, emptyPassword, template)

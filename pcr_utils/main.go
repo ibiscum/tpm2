@@ -16,7 +16,7 @@ import (
 )
 
 var (
-	tpmPath = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	mode    = flag.String("mode", "read", "read or extend PCR value")
 	pcr     = flag.Uint("pcr", 23, "PCR Value to read or extend")
 )

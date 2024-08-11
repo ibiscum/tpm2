@@ -19,7 +19,7 @@ import (
 )
 
 var (
-	tpmPath       = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath       = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	confirmGCESEV = flag.Bool("confirmGCESEV", false, "Confirm if GCE SEV Status is active")
 	//eventLogPath  = flag.String("eventLogPath", "/sys/kernel/security/tpm0/binary_bios_measurements", "Path to the eventlog")
 )

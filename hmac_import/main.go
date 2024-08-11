@@ -16,8 +16,8 @@ import (
 const ()
 
 var (
-	tpmPath = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
-	out     = flag.String("out", "private.pem", "privateKey File")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	//out     = flag.String("out", "private.pem", "privateKey File")
 )
 
 func main() {

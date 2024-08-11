@@ -12,54 +12,54 @@ import (
 	"github.com/google/go-tpm/legacy/tpm2"
 )
 
-const (
-	emptyPassword   = ""
-	defaultPassword = ""
-)
+// const (
+// 	emptyPassword   = ""
+// 	defaultPassword = ""
+// )
 
 var (
-	tpmPath       = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
-	primaryHandle = flag.String("primaryHandle", "primary.bin", "Handle to the primary")
-	keyHandle     = flag.String("keyHandle", "key.bin", "Handle to the privateKey")
-	flush         = flag.String("flush", "all", "Flush existing handles")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	//primaryHandle = flag.String("primaryHandle", "primary.bin", "Handle to the primary")
+	//keyHandle     = flag.String("keyHandle", "key.bin", "Handle to the privateKey")
+	flush = flag.String("flush", "all", "Flush existing handles")
 
 	handleNames = map[string][]tpm2.HandleType{
-		"all":       []tpm2.HandleType{tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
-		"loaded":    []tpm2.HandleType{tpm2.HandleTypeLoadedSession},
-		"saved":     []tpm2.HandleType{tpm2.HandleTypeSavedSession},
-		"transient": []tpm2.HandleType{tpm2.HandleTypeTransient},
+		"all":       {tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
+		"loaded":    {tpm2.HandleTypeLoadedSession},
+		"saved":     {tpm2.HandleTypeSavedSession},
+		"transient": {tpm2.HandleTypeTransient},
 	}
 
-	defaultKeyParams = tpm2.Public{
-		Type:    tpm2.AlgRSA,
-		NameAlg: tpm2.AlgSHA256,
-		Attributes: tpm2.FlagFixedTPM | tpm2.FlagFixedParent | tpm2.FlagSensitiveDataOrigin |
-			tpm2.FlagUserWithAuth | tpm2.FlagRestricted | tpm2.FlagDecrypt,
-		AuthPolicy: []byte{},
-		RSAParameters: &tpm2.RSAParams{
-			Symmetric: &tpm2.SymScheme{
-				Alg:     tpm2.AlgAES,
-				KeyBits: 128,
-				Mode:    tpm2.AlgCFB,
-			},
-			KeyBits: 2048,
-		},
-	}
+	// defaultKeyParams = tpm2.Public{
+	// 	Type:    tpm2.AlgRSA,
+	// 	NameAlg: tpm2.AlgSHA256,
+	// 	Attributes: tpm2.FlagFixedTPM | tpm2.FlagFixedParent | tpm2.FlagSensitiveDataOrigin |
+	// 		tpm2.FlagUserWithAuth | tpm2.FlagRestricted | tpm2.FlagDecrypt,
+	// 	AuthPolicy: []byte{},
+	// 	RSAParameters: &tpm2.RSAParams{
+	// 		Symmetric: &tpm2.SymScheme{
+	// 			Alg:     tpm2.AlgAES,
+	// 			KeyBits: 128,
+	// 			Mode:    tpm2.AlgCFB,
+	// 		},
+	// 		KeyBits: 2048,
+	// 	},
+	// }
 
-	rsaKeyParams = tpm2.Public{
-		Type:    tpm2.AlgRSA,
-		NameAlg: tpm2.AlgSHA256,
-		Attributes: tpm2.FlagFixedTPM | tpm2.FlagFixedParent | tpm2.FlagSensitiveDataOrigin |
-			tpm2.FlagUserWithAuth | tpm2.FlagSign,
-		AuthPolicy: []byte{},
-		RSAParameters: &tpm2.RSAParams{
-			Sign: &tpm2.SigScheme{
-				Alg:  tpm2.AlgRSASSA,
-				Hash: tpm2.AlgSHA256,
-			},
-			KeyBits: 2048,
-		},
-	}
+	// rsaKeyParams = tpm2.Public{
+	// 	Type:    tpm2.AlgRSA,
+	// 	NameAlg: tpm2.AlgSHA256,
+	// 	Attributes: tpm2.FlagFixedTPM | tpm2.FlagFixedParent | tpm2.FlagSensitiveDataOrigin |
+	// 		tpm2.FlagUserWithAuth | tpm2.FlagSign,
+	// 	AuthPolicy: []byte{},
+	// 	RSAParameters: &tpm2.RSAParams{
+	// 		Sign: &tpm2.SigScheme{
+	// 			Alg:  tpm2.AlgRSASSA,
+	// 			Hash: tpm2.AlgSHA256,
+	// 		},
+	// 		KeyBits: 2048,
+	// 	},
+	// }
 )
 
 func main() {
