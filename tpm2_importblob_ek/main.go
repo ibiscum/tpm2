@@ -27,7 +27,7 @@ var handleNames = map[string][]tpm2.HandleType{
 }
 
 var (
-	tpmPath              = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath              = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	importSigningKeyFile = flag.String("importSigningKeyFile", "", "Path to the importSigningKeyFile blob).")
 	bindPCRValues        = flag.String("bindPCRValues", "", "PCR Value to bind session to, comma separated list of PCRs 0->23")
 	mode                 = flag.String("mode", "import", "import or sign")
@@ -42,12 +42,12 @@ func main() {
 
 	rwc, err := tpm2.OpenTPM(*tpmPath)
 	if err != nil {
-		fmt.Printf("can't open TPM %q: %v", tpmPath, err)
+		fmt.Printf("can't open TPM %v: %v", tpmPath, err)
 		os.Exit(1)
 	}
 	defer func() {
 		if err := rwc.Close(); err != nil {
-			fmt.Printf("can't close TPM %q: %v", tpmPath, err)
+			fmt.Printf("can't close TPM %v: %v", tpmPath, err)
 			os.Exit(1)
 		}
 	}()
@@ -87,7 +87,7 @@ func main() {
 			fmt.Printf("Unable to ReadPCR: %v", err)
 			os.Exit(1)
 		}
-		fmt.Printf("Using PCR: %i %s\n", i, hex.EncodeToString(pcr23))
+		fmt.Printf("Using PCR: %d %s\n", i, hex.EncodeToString(pcr23))
 	}
 
 	if *mode == "import" {
@@ -165,7 +165,7 @@ func sign(rwc io.ReadWriteCloser, pubFile string, privFile string, dat string, l
 			/*sessionType=*/ tpm2.SessionPolicy,
 			/*symmetric=*/ tpm2.AlgNull,
 			/*authHash=*/ tpm2.AlgSHA256)
-		if err = tpm2.PolicyPCR(rwc, session, nil, tpm2.PCRSelection{tpm2.AlgSHA256, lbindPCRValue}); err != nil {
+		if err = tpm2.PolicyPCR(rwc, session, nil, tpm2.PCRSelection{Hash: tpm2.AlgSHA256, PCRs: lbindPCRValue}); err != nil {
 			return fmt.Errorf(err.Error())
 		}
 
@@ -192,7 +192,7 @@ func sign(rwc io.ReadWriteCloser, pubFile string, privFile string, dat string, l
 	return
 }
 
-func importSigningKey(rwc io.ReadWriteCloser, importSigningKeyFile string, pubFile string, privFile string, dat string, lbindPCRValue []int) (retErr error) {
+func importSigningKey(rwc io.ReadWriteCloser, importSigningKeyFile string, pubFile string, _ string, _ string, _ []int) (retErr error) {
 	fmt.Println("======= Init importSigningKey ========")
 
 	fmt.Println("======= Loading EndorsementKeyRSA ========")

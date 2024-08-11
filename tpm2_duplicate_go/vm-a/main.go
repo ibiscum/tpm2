@@ -16,7 +16,7 @@ const (
 )
 
 var (
-	tpmPath      = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath      = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	newParentPub = flag.String("new-parent", "new-parent.pub", "New Parents public key")
 	dupPub       = flag.String("duppub", "dup.pub", "dup public")
 	dupDup       = flag.String("dupdup", "dup.dup", "dup duplicate")

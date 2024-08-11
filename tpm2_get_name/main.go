@@ -21,8 +21,8 @@ import (
 )
 
 var (
-	tpmPath   = flag.String("tpm-path", "127.0.0.1:2321", "Path to the TPM device (character device or a Unix socket).")
-	ekpubFile = flag.String("ekpubFile", "output.dat", "Path to the ekPublicKey.")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	// ekpubFile = flag.String("ekpubFile", "output.dat", "Path to the ekPublicKey.")
 )
 
 /*

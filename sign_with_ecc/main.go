@@ -21,8 +21,8 @@ import (
 const ()
 
 var (
-	tpmPath    = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
-	dataToSign = flag.String("datatosign", "foo", "data to sign")
+	tpmPath    = flag.String("tpmPath", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	dataToSign = flag.String("dataToSign", "foo", "data to sign")
 )
 
 var TPMDEVICES = []string{"/dev/tpm0", "/dev/tpmrm0"}

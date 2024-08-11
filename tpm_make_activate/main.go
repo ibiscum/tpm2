@@ -19,7 +19,7 @@ import (
 const ()
 
 var (
-	tpmPath = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	secret  = flag.String("secret", "meet me at...", "secret")
 )
 

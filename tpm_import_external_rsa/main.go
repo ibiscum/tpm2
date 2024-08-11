@@ -24,7 +24,7 @@ import (
 const ()
 
 var (
-	tpmPath    = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath    = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	pemFile    = flag.String("pemFile", "private.pem", "Private key PEM format file")
 	dataToSign = flag.String("datatosign", "foo", "data to sign")
 )

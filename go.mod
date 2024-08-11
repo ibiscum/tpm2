@@ -12,7 +12,7 @@ require (
 
 require (
 	github.com/foxboron/go-tpm-keyfiles v0.0.0-20240805214234-f870d6f1ff68
-	github.com/golang/protobuf v1.5.3 // indirect
+	github.com/golang/protobuf v1.5.3
 	github.com/google/certificate-transparency-go v1.1.2 // indirect
 	github.com/google/go-configfs-tsm v0.2.2 // indirect
 	github.com/google/go-sev-guest v0.9.3 // indirect

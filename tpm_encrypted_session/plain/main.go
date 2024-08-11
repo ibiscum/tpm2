@@ -16,7 +16,7 @@ import (
 const ()
 
 var (
-	tpmPath    = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath    = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 	dataToSeal = flag.String("datatoseal", "secret", "data to sign")
 )
 

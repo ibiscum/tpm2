@@ -15,14 +15,14 @@ import (
 	"github.com/google/go-tpm/tpmutil"
 )
 
-const (
-	keyPassword = "keypwd"
-)
+// const (
+// 	keyPassword = "keypwd"
+// )
 
 var (
-	tpmPath    = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
-	pcr        = flag.Int("pcr", 23, "PCR to seal data to. Must be within [0, 23].")
-	sealedFile = flag.String("file", "secret.dat", "Sealed Filename")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	pcr     = flag.Int("pcr", 23, "PCR to seal data to. Must be within [0, 23].")
+	//sealedFile = flag.String("file", "secret.dat", "Sealed Filename")
 )
 
 var TPMDEVICES = []string{"/dev/tpm0", "/dev/tpmrm0"}
