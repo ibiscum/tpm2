@@ -16,18 +16,18 @@ import (
 )
 
 var (
-	grpcport = flag.String("grpcport", "", "grpcport")
+	// grpcport = flag.String("grpcport", "", "grpcport")
 
 	handleNames = map[string][]tpm2.HandleType{
-		"all":       []tpm2.HandleType{tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
-		"loaded":    []tpm2.HandleType{tpm2.HandleTypeLoadedSession},
-		"saved":     []tpm2.HandleType{tpm2.HandleTypeSavedSession},
-		"transient": []tpm2.HandleType{tpm2.HandleTypeTransient},
+		"all":       {tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
+		"loaded":    {tpm2.HandleTypeLoadedSession},
+		"saved":     {tpm2.HandleTypeSavedSession},
+		"transient": {tpm2.HandleTypeTransient},
 	}
 )
 
 const (
-	tpmDevice             = "/dev/tpm0"
+	tpmDevice             = "/dev/tpmrm0"
 	encryptionCertNVIndex = 0x01c00002
 )
 
@@ -36,9 +36,9 @@ func main() {
 	flag.Parse()
 
 	// on client create SKR cert
-	rwc, err := tpm2.OpenTPM("/dev/tpm0")
+	rwc, err := tpm2.OpenTPM(tpmDevice)
 	if err != nil {
-		log.Fatalf("failed to initialize simulator: %v", err)
+		log.Fatalf("failed to initialize TPM device: %v", err)
 	}
 	defer rwc.Close()
 

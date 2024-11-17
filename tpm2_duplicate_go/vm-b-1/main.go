@@ -14,16 +14,16 @@ import (
 	"github.com/google/go-tpm/tpmutil"
 )
 
-const (
-	parentPassword = ""
-	ownerPassword  = ""
-)
+// const (
+// 	parentPassword = ""
+// 	ownerPassword  = ""
+// )
 
 var (
-	tpmPath          = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
-	persistentHandle = flag.Uint("persistentHandle", 0x81008000, "Handle value")
-	publicFile       = flag.String("publicFile", "new-parent.pub", "New Parent public")
-	privateFile      = flag.String("privateFile", "new-parent.priv", "New Parent private")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	// persistentHandle = flag.Uint("persistentHandle", 0x81008000, "Handle value")
+	publicFile  = flag.String("publicFile", "new-parent.pub", "New Parent public")
+	privateFile = flag.String("privateFile", "new-parent.priv", "New Parent private")
 
 	primaryTemplate = tpm2.TPMTPublic{
 		Type:    tpm2.TPMAlgRSA,

@@ -15,18 +15,18 @@ import (
 
 	//"github.com/google/go-tpm-tools/proto/attest"
 	"github.com/google/go-tpm-tools/proto/tpm"
-	tpmpb "github.com/google/go-tpm-tools/proto/tpm"
 	"github.com/google/go-tpm/legacy/tpm2"
+	tpmpb "github.com/google/go-tpm/legacy/tpm2"
 )
 
 var (
 	expectedPCRMapSHA256 = flag.String("expectedPCRMapSHA256", "0:24af52a4f429b71a3184a6d64cddad17e54ea030e2aa6576bf3a5a3d8bd3328f", "Sealing and Quote PCRMap (as comma separated key:value).  pcr#:sha256,pcr#sha256.  Default value uses pcr0:sha256")
 
 	handleNames = map[string][]tpm2.HandleType{
-		"all":       []tpm2.HandleType{tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
-		"loaded":    []tpm2.HandleType{tpm2.HandleTypeLoadedSession},
-		"saved":     []tpm2.HandleType{tpm2.HandleTypeSavedSession},
-		"transient": []tpm2.HandleType{tpm2.HandleTypeTransient},
+		"all":       {tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
+		"loaded":    {tpm2.HandleTypeLoadedSession},
+		"saved":     {tpm2.HandleTypeSavedSession},
+		"transient": {tpm2.HandleTypeTransient},
 	}
 )
 
@@ -34,9 +34,9 @@ func main() {
 	flag.Parse()
 
 	// on client create SKR cert
-	rwc, err := tpm2.OpenTPM("/dev/tpm0")
+	rwc, err := tpm2.OpenTPM("/dev/tpmrm0")
 	if err != nil {
-		log.Fatalf("failed to initialize simulator: %v", err)
+		log.Fatalf("failed to initialize TPM device: %v", err)
 	}
 	defer rwc.Close()
 

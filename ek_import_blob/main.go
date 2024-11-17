@@ -55,7 +55,10 @@ func main() {
 				parts := strings.Split(e, "=")
 				u, err := strconv.ParseUint(parts[0], 10, 64)
 				if err != nil {
-					glog.Fatalf("Error parsing uint64->32: %v\n", err)
+					glog.Fatalf("Error parsing uint64: %v\n", err)
+				}
+				if u > math.MaxUint32 {
+					glog.Fatalf("Parsed value exceeds uint32 range: %v\n", u)
 				}
 
 				hv, err := hex.DecodeString(parts[1])

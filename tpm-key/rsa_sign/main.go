@@ -12,7 +12,7 @@ import (
 	// "github.com/google/go-tpm-tools/simulator"
 	// "github.com/google/go-tpm/tpmutil"
 
-	"github.com/foxboron/go-tpm-keyfiles/keyfile"
+	keyfile "github.com/foxboron/go-tpm-keyfiles"
 	"github.com/google/go-tpm/tpm2"
 	"github.com/google/go-tpm/tpm2/transport"
 	"github.com/google/go-tpm/tpmutil"
@@ -196,7 +196,7 @@ func main() {
 		log.Fatalf("failed to create KeyFile: %v", err)
 	}
 
-	b, err := keyfile.Encode(tkf)
+	err = keyfile.Encode(tkf)
 	if err != nil {
 		log.Fatalf("failed to encode Key: %v", err)
 	}

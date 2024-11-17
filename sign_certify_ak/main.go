@@ -23,13 +23,13 @@ const ()
 
 var (
 	handleNames = map[string][]tpm2.HandleType{
-		"all":       []tpm2.HandleType{tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
-		"loaded":    []tpm2.HandleType{tpm2.HandleTypeLoadedSession},
-		"saved":     []tpm2.HandleType{tpm2.HandleTypeSavedSession},
-		"transient": []tpm2.HandleType{tpm2.HandleTypeTransient},
+		"all":       {tpm2.HandleTypeLoadedSession, tpm2.HandleTypeSavedSession, tpm2.HandleTypeTransient},
+		"loaded":    {tpm2.HandleTypeLoadedSession},
+		"saved":     {tpm2.HandleTypeSavedSession},
+		"transient": {tpm2.HandleTypeTransient},
 	}
 
-	tpmPath = flag.String("tpm-path", "/dev/tpm0", "Path to the TPM device (character device or a Unix socket).")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
 
 	// https://github.com/google/go-attestation/blob/master/attest/tpm.go#L48
 
@@ -97,11 +97,11 @@ func main() {
 
 	rwc, err := tpm2.OpenTPM(*tpmPath)
 	if err != nil {
-		log.Fatalf("can't open TPM %q: %v", tpmPath, err)
+		log.Fatalf("can't open TPM %v: %v", tpmPath, err)
 	}
 	defer func() {
 		if err := rwc.Close(); err != nil {
-			log.Fatalf("%v\ncan't close TPM %q: %v", tpmPath, err)
+			log.Fatalf("can't close TPM %v: %v", tpmPath, err)
 		}
 	}()
 
@@ -394,7 +394,7 @@ func main() {
 	log.Printf("     Attestation att.AttestedCertifyInfo.Name: %s", base64.StdEncoding.EncodeToString(att.AttestedCertifyInfo.Name.Digest.Value))
 
 	sigL := tpm2.SignatureRSA{
-		HashAlg:   tpm2.AlgSHA256,
+		//HashAlg:   tpm2.AlgSHA256,
 		Signature: csig,
 	}
 

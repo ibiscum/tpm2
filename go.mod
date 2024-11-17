@@ -3,16 +3,16 @@ module github.com/ibiscum/tpm2
 go 1.22.6
 
 require (
-	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
-	github.com/google/go-attestation v0.5.0
+	github.com/golang/glog v1.2.3
+	github.com/google/go-attestation v0.5.1
 	github.com/google/go-tpm v0.9.1
 	github.com/google/go-tpm-tools v0.4.4
-	google.golang.org/protobuf v1.33.0
+	google.golang.org/protobuf v1.35.1
 )
 
 require (
 	github.com/foxboron/go-tpm-keyfiles v0.0.0-20240805214234-f870d6f1ff68
-	github.com/golang/protobuf v1.5.3
+	github.com/golang/protobuf v1.5.4
 	github.com/google/certificate-transparency-go v1.1.2 // indirect
 	github.com/google/go-configfs-tsm v0.2.2 // indirect
 	github.com/google/go-sev-guest v0.9.3 // indirect

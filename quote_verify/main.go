@@ -18,11 +18,11 @@ import (
 )
 
 var (
-	secret       = flag.String("secret", "meet me at...", "secret")
-	ekPubFilepub = flag.String("ekPubFile", "ek.bin", "ekPub file")
-	tpmPath      = flag.String("tpm-path", "simulator", "Path to the TPM device (character device or a Unix socket).")
-	pcr          = flag.Int("pcr", 23, "PCR to seal data to. Must be within [0, 23].")
-	pcrValue     = flag.String("pcrValue", "0f2d3a2a1adaa479aeeca8f5df76aadc41b862ea", "PCR value. on GCP Shielded VM, debian10 with secureboot: 0f2d3a2a1adaa479aeeca8f5df76aadc41b862ea is for PCR 0")
+	secret = flag.String("secret", "meet me at...", "secret")
+	//ekPubFilepub = flag.String("ekPubFile", "ek.bin", "ekPub file")
+	tpmPath = flag.String("tpm-path", "/dev/tpmrm0", "Path to the TPM device (character device or a Unix socket).")
+	//pcr          = flag.Int("pcr", 23, "PCR to seal data to. Must be within [0, 23].")
+	//crValue     = flag.String("pcrValue", "0f2d3a2a1adaa479aeeca8f5df76aadc41b862ea", "PCR value. on GCP Shielded VM, debian10 with secureboot: 0f2d3a2a1adaa479aeeca8f5df76aadc41b862ea is for PCR 0")
 )
 
 var TPMDEVICES = []string{"/dev/tpm0", "/dev/tpmrm0"}
