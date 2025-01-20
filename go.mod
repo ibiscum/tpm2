@@ -7,7 +7,7 @@ require (
 	github.com/google/go-attestation v0.5.1
 	github.com/google/go-tpm v0.9.3
 	github.com/google/go-tpm-tools v0.4.4
-	google.golang.org/protobuf v1.36.1
+	google.golang.org/protobuf v1.36.3
 )
 
 require (
