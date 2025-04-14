@@ -1,6 +1,7 @@
 module github.com/ibiscum/tpm2
 
 go 1.22.6
+toolchain go1.24.1
 
 require (
 	github.com/golang/glog v1.2.5
@@ -23,6 +24,6 @@ require (
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/crypto v0.35.0 // indirect
+	golang.org/x/sys v0.30.0 // indirect
 )
