@@ -14,7 +14,7 @@ require (
 
 require (
 	github.com/GoogleCloudPlatform/confidential-space/server v0.0.0-20260307011055-895ec9019dd7 // indirect
-	github.com/containerd/containerd v1.7.30 // indirect
+	github.com/containerd/containerd v1.7.32 // indirect
 	github.com/google/go-eventlog v0.0.3-0.20260305053119-5cd85087f9f9 // indirect
 )
 
