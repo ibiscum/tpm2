@@ -8,14 +8,13 @@ require (
 	github.com/golang/glog v1.2.5
 	github.com/google/go-attestation v0.6.0
 	github.com/google/go-tpm v0.9.8
-	github.com/google/go-tpm-tools v0.4.8
+	github.com/google/go-tpm-tools v0.4.9
 	google.golang.org/protobuf v1.36.11
 )
 
 require (
-	github.com/GoogleCloudPlatform/confidential-space/server v0.0.0-20260307011055-895ec9019dd7 // indirect
-	github.com/containerd/containerd v1.7.32 // indirect
-	github.com/google/go-eventlog v0.0.3-0.20260305053119-5cd85087f9f9 // indirect
+	github.com/GoogleCloudPlatform/confidential-space/server v0.0.0-20260522213940-e5c6d01a3007 // indirect
+	github.com/google/go-eventlog v0.0.3-0.20260416001248-6807b85eecf0 // indirect
 )
 
 require (
