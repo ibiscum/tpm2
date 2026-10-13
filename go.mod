@@ -6,13 +6,13 @@ require (
 	github.com/golang/glog v1.2.5
 	github.com/google/go-attestation v0.6.4
 	github.com/google/go-tpm v0.9.8
-	github.com/google/go-tpm-tools v0.4.10
+	github.com/google/go-tpm-tools v0.4.11
 	google.golang.org/protobuf v1.36.12
 )
 
 require (
 	github.com/GoogleCloudPlatform/confidential-space/server v0.0.0-20260915221818-a6c0685fb9fc // indirect
-	github.com/google/go-eventlog v0.0.3-0.20260617163629-883cc5652c69 // indirect
+	github.com/google/go-eventlog v0.0.3-0.20261001001437-1991f15bc4b0 // indirect
 )
 
 require (
